@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: e71325cd7043e5847977995a2308c3dd
+timeCreated: 1479346850
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Rockwell
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: be89c012720a63f4199a16972c1bab8c, type: 3}
+  - {fileID: 12800000, guid: d98a0b9ea43c04845aa57e47d093d48d, type: 3}
+  - {fileID: 12800000, guid: 7952682f92630d14eab0a97b1687afdd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

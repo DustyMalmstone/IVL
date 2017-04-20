@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a9ceb1512d146ba4183a0c201ef579bf
+timeCreated: 1479346676
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Microsoft PhagsPa
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 432b143360d13d045a28e4fc97614640, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

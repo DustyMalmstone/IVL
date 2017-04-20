@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5da3b6d6dda74ee4ba6874baf4ede19b
+timeCreated: 1479346612
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Elephant
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 402f5f8be13796a4a80e3fa561d6cd33, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

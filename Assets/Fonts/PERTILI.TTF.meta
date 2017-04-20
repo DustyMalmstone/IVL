@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d5649641e6b4c4945a5e1e4cb77bbac9
+timeCreated: 1479346794
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Perpetua Titling MT
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3555534d24b63254bb3b4e96a9ab472c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

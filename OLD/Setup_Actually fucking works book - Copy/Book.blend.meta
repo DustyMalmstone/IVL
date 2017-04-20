@@ -1,0 +1,221 @@
+fileFormatVersion: 2
+guid: 9fb7238545cd0cd40a40231ae49a6246
+timeCreated: 1490960360
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Back2_IK
+    100004: Back3_IK
+    100006: Back4_IK
+    100008: Back_IK
+    100010: Base_Bone
+    100012: Bone
+    100014: Bone2
+    100016: Bone2_001
+    100018: Bone2_002
+    100020: Bone2_003
+    100022: Bone2_004
+    100024: Bone2_005
+    100026: Bone2_006
+    100028: Bone2_007
+    100030: Bone3
+    100032: Bone3_001
+    100034: Bone3_002
+    100036: Bone3_003
+    100038: Bone3_004
+    100040: Bone3_005
+    100042: Bone3_006
+    100044: Bone3_007
+    100046: Bone4
+    100048: Bone4_001
+    100050: Bone4_003
+    100052: Bone4_004
+    100054: Bone4_005
+    100056: Bone4_006
+    100058: Bone4_007
+    100060: Bone_001
+    100062: Bone_002
+    100064: Bone_003
+    100066: Bone_004
+    100068: Bone_005
+    100070: Bone_006
+    100072: Bone_007
+    100074: Bone_3
+    100076: Book
+    100078: //RootNode
+    100080: Mid_Bone
+    100082: Page_Armature_1
+    100084: Page_Armature_2
+    100086: Page_Armature_3
+    100088: Page_Armature_4
+    100090: Page_Back
+    100092: Page_Back_001
+    100094: Page_Back_003
+    100096: Page_Back_004
+    100098: Page_Front
+    100100: Page_Front_001
+    100102: Page_Front_003
+    100104: Page_Front_004
+    100106: Tip2_IK
+    100108: Tip3_IK
+    100110: Tip4_IK
+    100112: Tip_Bone
+    100114: Tip_IK
+    400000: Armature
+    400002: Back2_IK
+    400004: Back3_IK
+    400006: Back4_IK
+    400008: Back_IK
+    400010: Base_Bone
+    400012: Bone
+    400014: Bone2
+    400016: Bone2_001
+    400018: Bone2_002
+    400020: Bone2_003
+    400022: Bone2_004
+    400024: Bone2_005
+    400026: Bone2_006
+    400028: Bone2_007
+    400030: Bone3
+    400032: Bone3_001
+    400034: Bone3_002
+    400036: Bone3_003
+    400038: Bone3_004
+    400040: Bone3_005
+    400042: Bone3_006
+    400044: Bone3_007
+    400046: Bone4
+    400048: Bone4_001
+    400050: Bone4_003
+    400052: Bone4_004
+    400054: Bone4_005
+    400056: Bone4_006
+    400058: Bone4_007
+    400060: Bone_001
+    400062: Bone_002
+    400064: Bone_003
+    400066: Bone_004
+    400068: Bone_005
+    400070: Bone_006
+    400072: Bone_007
+    400074: Bone_3
+    400076: //RootNode
+    400078: Book
+    400080: Mid_Bone
+    400082: Page_Armature_1
+    400084: Page_Armature_2
+    400086: Page_Armature_3
+    400088: Page_Armature_4
+    400090: Page_Back
+    400092: Page_Back_001
+    400094: Page_Back_003
+    400096: Page_Back_004
+    400098: Page_Front
+    400100: Page_Front_001
+    400102: Page_Front_003
+    400104: Page_Front_004
+    400106: Tip2_IK
+    400108: Tip3_IK
+    400110: Tip4_IK
+    400112: Tip_Bone
+    400114: Tip_IK
+    4300000: Book
+    4300002: Page_Back
+    4300004: Page_Front
+    4300006: Page_Back_001
+    4300008: Page_Front_001
+    4300010: Page_Back_004
+    4300012: Page_Front_004
+    4300014: Page_Back_003
+    4300016: Page_Front_003
+    7400000: Default Take
+    7400002: Back_1
+    7400004: Back_2
+    7400006: Back_3
+    7400008: Back_4
+    7400010: Close
+    7400012: Forward_1
+    7400014: Forward_2
+    7400016: Forward_3
+    7400018: Forward_4
+    7400020: Open
+    9500000: //RootNode
+    13700000: Book
+    13700002: Page_Back
+    13700004: Page_Back_001
+    13700006: Page_Back_003
+    13700008: Page_Back_004
+    13700010: Page_Front
+    13700012: Page_Front_001
+    13700014: Page_Front_003
+    13700016: Page_Front_004
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

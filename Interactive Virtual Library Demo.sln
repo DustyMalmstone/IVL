@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive Virtual Library Demo.Plugins", "Interactive Virtual Library Demo.Plugins.csproj", "{A1E84A78-A10C-6731-E902-EBE97ED3D537}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive Virtual Library Demo", "Interactive Virtual Library Demo.csproj", "{AEEAAEF6-9A5F-4F55-8444-8E6E576DCB30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive Virtual Library Demo.Editor", "Interactive Virtual Library Demo.Editor.csproj", "{D4CD766F-E4F4-77D0-033F-A852DD29A6FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1E84A78-A10C-6731-E902-EBE97ED3D537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E84A78-A10C-6731-E902-EBE97ED3D537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E84A78-A10C-6731-E902-EBE97ED3D537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E84A78-A10C-6731-E902-EBE97ED3D537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEEAAEF6-9A5F-4F55-8444-8E6E576DCB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEEAAEF6-9A5F-4F55-8444-8E6E576DCB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEEAAEF6-9A5F-4F55-8444-8E6E576DCB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEEAAEF6-9A5F-4F55-8444-8E6E576DCB30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CD766F-E4F4-77D0-033F-A852DD29A6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CD766F-E4F4-77D0-033F-A852DD29A6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CD766F-E4F4-77D0-033F-A852DD29A6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CD766F-E4F4-77D0-033F-A852DD29A6FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

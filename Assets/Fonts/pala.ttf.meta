@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 9e91a671a79702144a8ca041459a2ab3
+timeCreated: 1479346674
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Palatino Linotype
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 7fc9e3d1869464c40b9e6e186c20158c, type: 3}
+  - {fileID: 12800000, guid: 22d5780dd3cf2274c8a8942c8eceb4a8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
