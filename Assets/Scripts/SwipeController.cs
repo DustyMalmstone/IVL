@@ -90,19 +90,19 @@ public class SwipeController : MonoBehaviour {
             {
                 if (palmPositionsL.Count >= NumberOfFrames)
                 {
-                    GameObject lastSphere = spheresL.Last.Value;
+                    //GameObject lastSphere = spheresL.Last.Value;
 
                     palmPositionsL.RemoveLast();
-#if UNITY_EDITOR
-                    spheresL.RemoveLast();
+//#if UNITY_EDITOR
+//                    spheresL.RemoveLast();
 
-                    DestroyImmediate(lastSphere.gameObject);
-#endif
+//                    DestroyImmediate(lastSphere.gameObject);
+//#endif
                 }
                 palmPositionsL.AddFirst(hand.PalmPosition);
 
 #if UNITY_EDITOR
-                CreateSphere(spheresL, hand.PalmPosition);
+                //CreateSphere(spheresL, hand.PalmPosition);
 
                 // Makes min distance a function of numFrames, but closer to actual
                 // distance traveled
@@ -129,20 +129,20 @@ public class SwipeController : MonoBehaviour {
             {
                 if (palmPositionsR.Count >= NumberOfFrames)
                 {
-                    GameObject lastSphere = spheresR.Last.Value;
+                    //GameObject lastSphere = spheresR.Last.Value;
 
                     palmPositionsR.RemoveLast();
-#if UNITY_EDITOR
-                    spheresR.RemoveLast();
+//#if UNITY_EDITOR
+//                    spheresR.RemoveLast();
 
-                    DestroyImmediate(lastSphere.gameObject);
-#endif
+//                    DestroyImmediate(lastSphere.gameObject);
+//#endif
                 }
                 palmPositionsR.AddFirst(hand.PalmPosition);
 
-#if UNITY_EDITOR
-                CreateSphere(spheresR, hand.PalmPosition);
-#endif
+//#if UNITY_EDITOR
+//                CreateSphere(spheresR, hand.PalmPosition);
+//#endif
                 // Makes min distance a function of numFrames, but closer to actual
                 // distance traveled
                 minDistCoveredForSwipe = NumberOfFrames * .01f;

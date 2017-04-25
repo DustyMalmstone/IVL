@@ -92,7 +92,7 @@ public class CustomDirectionDetector : Detector {
                     Transform hitObject = null;
                     if (hand.Fingers[selectedFinger].IsExtended && HandModel.IsTracked && Physics.Raycast(fingerStart, forward, out hit))
                     {
-                        if (hit.transform.gameObject.tag == "Book" )
+                        if (hit.transform.gameObject.tag == "Book" && !BookshelfSpawnController.bookSelected)
                         {
 #if DEBUG
                             //Debug.Log("Found book");

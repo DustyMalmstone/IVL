@@ -237,7 +237,7 @@
     <Compile Include="Assets\OVR\Scripts\Util\OVRWaitCursor.cs" />
     <Compile Include="Assets\Scripts\Book (old).cs" />
     <Compile Include="Assets\Scripts\Book.cs" />
-    <Compile Include="Assets\Scripts\BookDetector.cs" />
+    <Compile Include="Assets\Scripts\BookDetector (old).cs" />
     <Compile Include="Assets\Scripts\BookScript (old).cs" />
     <Compile Include="Assets\Scripts\BookshelfSpawnController.cs" />
     <Compile Include="Assets\Scripts\CubeController (old).cs" />
@@ -245,6 +245,7 @@
     <Compile Include="Assets\Scripts\CustomDirectionDetector.cs" />
     <Compile Include="Assets\Scripts\KBManager.cs" />
     <Compile Include="Assets\Scripts\Key.cs" />
+    <Compile Include="Assets\Scripts\MenuManager.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawnController.cs" />
     <Compile Include="Assets\Scripts\QueryController (old).cs" />
     <Compile Include="Assets\Scripts\QueryManager.cs" />
@@ -252,7 +253,8 @@
     <Compile Include="Assets\Scripts\SwipeController.cs" />
     <Compile Include="Assets\Scripts\SwipeDetector.cs" />
     <Compile Include="Assets\Scripts\TextWrapper.cs" />
-    <Compile Include="Assets\Setup_Shit to give Zach\NewBook.cs" />
+    <Compile Include="Assets\Setup_Book Components\BookDetector.cs" />
+    <Compile Include="Assets\Setup_Book Components\NewBook.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LeapMotion\Dependencies.txt" />

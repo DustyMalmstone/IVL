@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class KBManager : MonoBehaviour {
 
-    public Text searchText;
+    public InputField titleSearch, authorSearch, keywordSearch;
     public bool caps, lastCaps;
     public GameObject keysPanel;
     public GameObject[] keys;
     public QueryManager qm;
+    public Toggle capsKey;
+
+    char selectedSearch;
 
     /*
     private void Start()
@@ -25,6 +28,22 @@ public class KBManager : MonoBehaviour {
     }
     */
 
+    private void Update()
+    {
+        if (titleSearch.isFocused && selectedSearch != 't')
+        {
+            selectedSearch = 't';
+        }
+        if (authorSearch.isFocused && selectedSearch != 'a')
+        {
+            selectedSearch = 'a';
+        }
+        if (keywordSearch.isFocused && selectedSearch != 'k')
+        {
+            selectedSearch = 'k';
+        }
+    }
+
     private void LateUpdate()
     {
         if(caps != lastCaps)
@@ -35,6 +54,7 @@ public class KBManager : MonoBehaviour {
                 {
                     Key current = key.GetComponent<Key>();
                     current.label.text = current.altKey;
+                    capsKey.transform.GetChild(0).GetComponentInChildren<Text>().text = "Caps Lock";
                 }
             }
             else
@@ -43,6 +63,7 @@ public class KBManager : MonoBehaviour {
                 {
                     Key current = key.GetComponent<Key>();
                     current.label.text = current.key;
+                    capsKey.transform.GetChild(0).GetComponentInChildren<Text>().text = "Caps Lock";
                 }
             }
             lastCaps = caps;
@@ -51,15 +72,40 @@ public class KBManager : MonoBehaviour {
 
     public void AddChar(Key key)
     {
+        if (selectedSearch == 't')
+        {
+            if (caps)
+            {
+                titleSearch.text += key.altKey;
+            }
+            else
+            {
+                titleSearch.text += key.key;
+            }
+        }
+        else if (selectedSearch == 'a')
+        {
+            if (caps)
+            {
+                authorSearch.text += key.altKey;
+            }
+            else
+            {
+                authorSearch.text += key.key;
+            }
+        }
+        else if (selectedSearch == 'k')
+        {
+            if (caps)
+            {
+                keywordSearch.text += key.altKey;
+            }
+            else
+            {
+                keywordSearch.text += key.key;
+            }
+        }
 
-        if (caps)
-        {
-            searchText.text += key.altKey;
-        }
-        else
-        {
-            searchText.text += key.key;
-        }
 
     }
 
@@ -70,16 +116,35 @@ public class KBManager : MonoBehaviour {
 
     public void Backspace()
     {
-        if(searchText.text != "")
+        if (selectedSearch == 't')
         {
-            searchText.text = searchText.text.Substring(0, searchText.text.Length - 1);
+            if (titleSearch.text != "")
+            {
+                titleSearch.text = titleSearch.text.Substring(0, titleSearch.text.Length - 1);
+            }
         }
+        if (selectedSearch == 'a')
+        {
+            if (authorSearch.text != "")
+            {
+                authorSearch.text = authorSearch.text.Substring(0, authorSearch.text.Length - 1);
+            }
+        }
+        if (selectedSearch == 'k')
+        {
+            if (keywordSearch.text != "")
+            {
+                keywordSearch.text = keywordSearch.text.Substring(0, keywordSearch.text.Length - 1);
+            }
+        }
+
     }
 
     public void Enter()
     {
         /*qc.runQuery(searchText.text);*/
-        qm.Login(searchText.text);
+        Debug.Log("Pressed Enter");
+        qm.Login(titleSearch.text, authorSearch.text, keywordSearch.text);
     }
 
 }

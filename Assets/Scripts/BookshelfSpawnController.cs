@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BookshelfSpawnController : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class BookshelfSpawnController : MonoBehaviour {
     public GameObject bookshelf, bookModel, //prefab references for bookshelf and book
         spawnCore; //references to a central bookshelf spawn reference and the top left of a bookshelf
     public Transform[] spawnPoints; //array of spawnpoints
+    public Text[] Textures;
+    public int WordsPerPage;
+    public string BookText;
     public float shelfY, shelfX, shelfZ; //distance between shelves and distances between books on the same shelf, respectively
     public int maxLength = 10;
     public static bool bookSelected; //boolean to determine whether a book is currently off the shelf
@@ -23,7 +27,6 @@ public class BookshelfSpawnController : MonoBehaviour {
     int shelfNum = 4, bookNum = 10; //number of shelves on each bookshelf and number of books on each shelf
     Transform bookSpawnPos; //position of the book reference point
     Color[] colors = { Color.red, Color.blue, Color.green, Color.black, Color.cyan, Color.grey };
-    bool isDown;
 
 
     string[] bookInfo = new string[5]; //Index 0 == Book ID, 1 == Title, 2 == Author, 3 == Genre, 4 == Length
@@ -35,7 +38,6 @@ public class BookshelfSpawnController : MonoBehaviour {
         bookModels = new GameObject[bookshelves.Length, shelfNum, bookNum];
         SpawnShelves();
         //SpawnBooks();
-        isDown = false;
         bookSelected = false;
         defReadSpot = defaultReadSpot;
     }
@@ -67,23 +69,8 @@ public class BookshelfSpawnController : MonoBehaviour {
         //String used to store each book, represented by each line of the text file
         string nextBook;
 
-        //If there are already books on the shelves, get rid of them
-        if (bookModels[0, 0, 0] != null)
-        {
-            //Loop for each bookshelf
-            for (int i = 0; i < spawnPoints.Length; i++)
-            {
-                //Loop for each shelf
-                for (int j = 0; j < shelfNum; j++)
-                {
-                    //Loop for each position on the shelf
-                    for (int k = 0; k < bookNum; k++)
-                    {
-                        Destroy(bookModels[i, j, k]);
-                    }
-                }
-            }
-        }
+        //If there are books on the shelves, get rid of them
+        DestroyBooks();
 
         //Create file object & skip first line
         //System.IO.StreamReader qResult = new System.IO.StreamReader(filePath);
@@ -140,6 +127,10 @@ public class BookshelfSpawnController : MonoBehaviour {
 
                         //Build the book
                         bookModels[i, j, k] = (GameObject)Instantiate(bookModel, bookSpawnPos.position, bookSpawnPos.rotation);
+                        //bookModels[i, j, k].GetComponent<NewBook>().bookText = getsumtext();
+                        bookModels[i, j, k].GetComponent<NewBook>().WordsPerPage = WordsPerPage;
+                        bookModels[i, j, k].GetComponent<NewBook>().EstablishTextures(Textures);
+                        //bookModels[i, j, k].GetComponent<NewBook>().EstablishPages();
                         bookModels[i, j, k].transform.parent = bookshelves[i].transform;
                         //bookModels[i, j, k].GetComponent<BookDetector>().bsc = this;
                         //bookModels[i, j, k].GetComponent<Book>().NumberOfPages = (int)System.Math.Ceiling(double.Parse(bookInfo[4]) / 1000);
@@ -162,10 +153,10 @@ public class BookshelfSpawnController : MonoBehaviour {
                             zpos = bookModels[i, j, k].transform.position.z + (shelfZ * k * posSwitcher) / 4;
                         }
 
-                        //Set the final position of the book and give it a random size and color
+                        //Set the final position and scale of the book and give it a random and color
                         bookModels[i, j, k].transform.position = new Vector3(xpos, ypos, zpos);
-                        bookModels[i, j, k].transform.localScale = new Vector3(.1f, .1f, Random.Range(.1f, .2f));
-                        bookModels[i, j, k].transform.GetChild(3).GetComponent<Renderer>().material.color = colors[Random.Range(0, colors.Length)];
+                        bookModels[i, j, k].transform.localScale = new Vector3(.2f, .2f, .2f);
+                        bookModels[i, j, k].transform.GetChild(1).GetComponent<Renderer>().material.color = colors[Random.Range(0, colors.Length)];
 
                         //bookModels[i, j, k].transform.localScale = new Vector3(1f, 1f, Mathf.Ceil(int.Parse(bookInfo[4]) / 1000));
 
@@ -173,13 +164,13 @@ public class BookshelfSpawnController : MonoBehaviour {
                         if (bookTitle.Length > maxLength)
                         {
                             string smallTitle = bookTitle.Substring(0, maxLength);
-                            bookModels[i, j, k].transform.GetChild(0).GetComponent<TextMesh>().text = smallTitle;
-                            bookModels[i, j, k].transform.GetChild(1).GetComponent<TextMesh>().text = smallTitle;
+                            //bookModels[i, j, k].transform.GetChild(0).GetComponent<TextMesh>().text = smallTitle;
+                            //bookModels[i, j, k].transform.GetChild(1).GetComponent<TextMesh>().text = smallTitle;
                         }
                         else
                         {
-                            bookModels[i, j, k].transform.GetChild(0).GetComponent<TextMesh>().text = bookTitle;
-                            bookModels[i, j, k].transform.GetChild(1).GetComponent<TextMesh>().text = bookTitle;
+                            //bookModels[i, j, k].transform.GetChild(0).GetComponent<TextMesh>().text = bookTitle;
+                            //bookModels[i, j, k].transform.GetChild(1).GetComponent<TextMesh>().text = bookTitle;
                         }
                         bookIndex++;
                     }
@@ -193,29 +184,50 @@ public class BookshelfSpawnController : MonoBehaviour {
         bookIndex = 0;
     }
 
-    public void SpawnBooksFull()
+    public void DestroyBooks()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        //If there are already books on the shelves, get rid of them
+        if (bookModels[0, 0, 0] != null)
         {
-            for (int j = 0; j < shelfNum; j++)
+            //Loop for each bookshelf
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                //float offsetY = (shelfY * j) + 1;
-                for (int k = 0; k < bookNum; k++)
+                //Loop for each shelf
+                for (int j = 0; j < shelfNum; j++)
                 {
-                    //float offsetX = shelfX * k;
-                    //float offsetZ = shelfZ * k;
-                    //Vector3 finalPos = new Vector3(offsetX, offsetY, offsetZ);
-                    bookModels[i, j, k] = (GameObject)Instantiate(bookModel, bookSpawnPos.position, bookSpawnPos.rotation);
-                    bookModels[i, j, k].transform.parent = bookshelves[i].transform;
-                    float ypos = bookModels[i, j, k].transform.position.y - (shelfY * (j + 1)) / 4;
-                    float xpos = bookModels[i, j, k].transform.position.x + (shelfX * k) / 4;
-                    float zpos = bookModels[i, j, k].transform.position.z + (shelfZ * k) / 4;
-                    bookModels[i, j, k].transform.position = new Vector3(xpos, ypos, zpos);
-                    bookModels[i, j, k].transform.localScale = new Vector3(1f, 1f, Random.Range(1f, 2f));
-                    bookModels[i, j, k].transform.GetChild(0).GetComponent<Renderer>().material.color = colors[Random.Range(0, colors.Length)];
+                    //Loop for each position on the shelf
+                    for (int k = 0; k < bookNum; k++)
+                    {
+                        Destroy(bookModels[i, j, k]);
+                    }
                 }
             }
         }
     }
+
+    //public void SpawnBooksFull()
+    //{
+    //    for (int i = 0; i < spawnPoints.Length; i++)
+    //    {
+    //        for (int j = 0; j < shelfNum; j++)
+    //        {
+    //            //float offsetY = (shelfY * j) + 1;
+    //            for (int k = 0; k < bookNum; k++)
+    //            {
+    //                //float offsetX = shelfX * k;
+    //                //float offsetZ = shelfZ * k;
+    //                //Vector3 finalPos = new Vector3(offsetX, offsetY, offsetZ);
+    //                bookModels[i, j, k] = (GameObject)Instantiate(bookModel, bookSpawnPos.position, bookSpawnPos.rotation);
+    //                bookModels[i, j, k].transform.parent = bookshelves[i].transform;
+    //                float ypos = bookModels[i, j, k].transform.position.y - (shelfY * (j + 1)) / 4;
+    //                float xpos = bookModels[i, j, k].transform.position.x + (shelfX * k) / 4;
+    //                float zpos = bookModels[i, j, k].transform.position.z + (shelfZ * k) / 4;
+    //                bookModels[i, j, k].transform.position = new Vector3(xpos, ypos, zpos);
+    //                bookModels[i, j, k].transform.localScale = new Vector3(1f, 1f, Random.Range(1f, 2f));
+    //                bookModels[i, j, k].transform.GetChild(0).GetComponent<Renderer>().material.color = colors[Random.Range(0, colors.Length)];
+    //            }
+    //        }
+    //    }
+    //}
 
 }

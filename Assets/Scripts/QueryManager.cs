@@ -13,26 +13,29 @@ public class QueryManager : MonoBehaviour {
 
     private string URL = "http://localhost:8080/ServerManager.php";
 
-    public void Login(string text)
+    public void Login(string titleSearch, string authorSearch, string keywordSearch)
     {
-        StartCoroutine(loginRoutine(text));
+        Debug.Log("Started Login");
+        StartCoroutine(loginRoutine(titleSearch, authorSearch, keywordSearch));
     }
 
-    IEnumerator loginRoutine(string text)
+    IEnumerator loginRoutine(string titleSearch, string authorSearch, string keywordSearch)
     {
+        //Debug.Log("Started Coroutine: " + text);
         //string uname = Username.text;
         //string pass = Password.text;
 
         WWWForm form = new WWWForm();
-        //form.AddField("uname", uname);
-        //form.AddField("pass", pass);
-        form.AddField("author", text);
-        //form.AddField("min_char_count", 0);
-        //form.AddField("max_char_count", 60000);
+        //Debug.Log("created form");
+        form.AddField("title", titleSearch);
+        form.AddField("author", authorSearch);
+        form.AddField("keyword", keywordSearch);
 
         WWW w = new WWW(URL, form);
+        //Debug.Log("Ran search");
 
         yield return w;
+
 
         if (w.error != null)
         {
