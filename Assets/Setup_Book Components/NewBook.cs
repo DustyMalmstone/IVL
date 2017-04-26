@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +16,10 @@ public class NewBook : MonoBehaviour {
     public Text FrontText3;
     public Text BackText3;
     public int WordsPerPage;
+    public string bookId;
+    //public Text[] textures;
 
-    public string bookText;
+    public string bookText = "";
 
     private Animator bookAnimator;
     private string[] bookWords;
@@ -39,7 +42,6 @@ public class NewBook : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        bookWords = bookText.Split(' ');
         bookAnimator = gameObject.GetComponent<Animator>();
         
         front1Pos = 0;
@@ -55,7 +57,7 @@ public class NewBook : MonoBehaviour {
     public void EstablishPages()
     {
         pageTexts = createPageTexts();
-
+        Debug.Log(FrontText1.text);
         FrontText1.text = string.Join(" ", pageTexts[front1Pos]);
         BackText1.text = string.Join(" ", pageTexts[back1Pos]);
         FrontText2.text = string.Join(" ", pageTexts[front2Pos]);
@@ -74,10 +76,25 @@ public class NewBook : MonoBehaviour {
         BackText3 = textures[5];
     }
 
+    public bool EstablishText()
+    {
+        string bookFolder = @"C:\Users\Sarah\Desktop\newDBBooks\";
+
+        using (StreamReader reader = File.OpenText(bookFolder + bookId + ".txt"))
+        {
+            bookText = reader.ReadToEnd().Trim();
+        }
+        Debug.Log("Book Text: " + bookText);
+        bookWords = bookText.Split(' ');
+        if (bookText != "") { return true; }
+        else { return false; }
+    }
+
     List<string[]> createPageTexts()
     {
         int numberOfPages = (int)Math.Ceiling((0f + bookWords.Length) / WordsPerPage);
 
+        Debug.Log("Number of Pages: " + numberOfPages);
         List<string[]> pages = new List<string[]>();
         for (int i = 0; i < numberOfPages; i++)
         {

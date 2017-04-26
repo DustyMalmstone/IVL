@@ -81,9 +81,9 @@ public class CustomDirectionDetector : Detector {
 
                     //Finds delta direction, adds that to the start direction, and multiplies by 1/4
                     // So that it doesn't go out to far. Use deltas to change as the finger direction changes
-                    forward = new Vector3(.5F * (fingerStart.x + (fingerDirection.x - fingerStart.x)),
-                        .5F * (fingerStart.y + (fingerDirection.y - fingerStart.y)),
-                        .5F * (fingerStart.z + (fingerDirection.z - fingerStart.z)));
+                    forward = new Vector3(10.5F * (fingerStart.x + (fingerDirection.x - fingerStart.x)),
+                        10.5F * (fingerStart.y + (fingerDirection.y - fingerStart.y)),
+                        10.5F * (fingerStart.z + (fingerDirection.z - fingerStart.z)));
 
 #if DEBUG
                     Debug.DrawRay(fingerStart, forward, Color.blue);
@@ -92,10 +92,13 @@ public class CustomDirectionDetector : Detector {
                     Transform hitObject = null;
                     if (hand.Fingers[selectedFinger].IsExtended && HandModel.IsTracked && Physics.Raycast(fingerStart, forward, out hit))
                     {
+                        Debug.Log(hit.transform.gameObject.name);
                         if (hit.transform.gameObject.tag == "Book" && !BookshelfSpawnController.bookSelected)
                         {
 #if DEBUG
-                            //Debug.Log("Found book");
+                            Debug.Log("Found book");
+
+                            BookshelfSpawnController.bookSelected = true;
 #endif
                             hitObject = hit.transform;
                             Activate();

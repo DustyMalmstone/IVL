@@ -47,7 +47,6 @@ public class SwipeDetector : Detector {
     {
         if (controller.foundBook != null)
         {
-            Debug.Log("WHAAAAAAAA");
             controller.foundBook.GetComponent<NewBook>().turnForward();
         }
     }
@@ -56,7 +55,6 @@ public class SwipeDetector : Detector {
     {
         if (controller.foundBook != null)
         {
-            Debug.Log("BLARGEN FLOOF");
             controller.foundBook.GetComponent<NewBook>().turnBackward();
         }
     }

@@ -243,12 +243,14 @@
     <Compile Include="Assets\Scripts\CubeController (old).cs" />
     <Compile Include="Assets\Scripts\CustomDirectionDetector (old).cs" />
     <Compile Include="Assets\Scripts\CustomDirectionDetector.cs" />
+    <Compile Include="Assets\Scripts\KBFader.cs" />
     <Compile Include="Assets\Scripts\KBManager.cs" />
     <Compile Include="Assets\Scripts\Key.cs" />
     <Compile Include="Assets\Scripts\MenuManager.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawnController.cs" />
     <Compile Include="Assets\Scripts\QueryController (old).cs" />
     <Compile Include="Assets\Scripts\QueryManager.cs" />
+    <Compile Include="Assets\Scripts\ShelfFader.cs" />
     <Compile Include="Assets\Scripts\Sphere.cs" />
     <Compile Include="Assets\Scripts\SwipeController.cs" />
     <Compile Include="Assets\Scripts\SwipeDetector.cs" />

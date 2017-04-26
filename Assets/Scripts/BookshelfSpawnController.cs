@@ -111,9 +111,11 @@ public class BookshelfSpawnController : MonoBehaviour {
                             continue;
                         }
                         string bookTitle = null;
+                        string bookId = "";
                         try
                         {
                             bookTitle = bookInfo[1];
+                            bookId = bookInfo[0];
                             Debug.Log(bookTitle);
                         }
                         catch (System.IndexOutOfRangeException) {
@@ -127,7 +129,9 @@ public class BookshelfSpawnController : MonoBehaviour {
 
                         //Build the book
                         bookModels[i, j, k] = (GameObject)Instantiate(bookModel, bookSpawnPos.position, bookSpawnPos.rotation);
-                        //bookModels[i, j, k].GetComponent<NewBook>().bookText = getsumtext();
+                        bookModels[i, j, k].GetComponent<NewBook>().bookId = bookId;
+                        //bookModels[i, j, k].GetComponent<NewBook>().textures = Textures;
+                        //bookModels[i, j, k].GetComponent<NewBook>().bookText = getBookText();
                         bookModels[i, j, k].GetComponent<NewBook>().WordsPerPage = WordsPerPage;
                         bookModels[i, j, k].GetComponent<NewBook>().EstablishTextures(Textures);
                         //bookModels[i, j, k].GetComponent<NewBook>().EstablishPages();
@@ -180,9 +184,13 @@ public class BookshelfSpawnController : MonoBehaviour {
             float zTemp = shelfZ;
             shelfZ = shelfX;
             shelfX = zTemp;
+
+            bookshelves[i].GetComponent<ShelfFader>().ApplyToChildren();
         }
         bookIndex = 0;
     }
+
+    private string getBookText() { return ""; }
 
     public void DestroyBooks()
     {

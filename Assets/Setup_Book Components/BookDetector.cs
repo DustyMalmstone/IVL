@@ -7,11 +7,14 @@ public class BookDetector : MonoBehaviour {
 
     //public objects
     public int lerpTime;
+    public static bool isReturn = false;
 
     //private objects
     bool isMove = false;
     float currentLerpTime = 0;
+    bool gotText = false;
     Transform defReadSpot; //The default spot for reading from bsc
+    Transform shelfSpot; //The position on the shelf of the book
 
     private void Start()
     {
@@ -22,6 +25,8 @@ public class BookDetector : MonoBehaviour {
     {
         if (isMove)
         {
+            gameObject.tag = "FadeExempt";
+
             defReadSpot = BookshelfSpawnController.defReadSpot.transform;
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime >= lerpTime)
@@ -29,12 +34,40 @@ public class BookDetector : MonoBehaviour {
                 currentLerpTime = lerpTime;
             }
             float distCovered = currentLerpTime / lerpTime;
-            transform.position = Vector3.Lerp(transform.position, defReadSpot.position, distCovered);
+            transform.position = Vector3.Lerp(shelfSpot.position, defReadSpot.position, distCovered);
+            transform.rotation = Quaternion.Lerp(shelfSpot.rotation, defReadSpot.rotation, distCovered);
+
+            if (!gotText)
+            {
+                bool passed = gameObject.GetComponent<NewBook>().EstablishText();
+                Debug.Log("Passed? " + passed);
+            
+                if (passed)
+                {
+                    gotText = true;
+                    gameObject.GetComponent<NewBook>().EstablishPages();
+                }
+            }
 
             if (transform.position.Equals(defReadSpot.position))
             {
                 isMove = false;
             }
+        }
+
+        if (isReturn)
+        {
+            gameObject.tag = "Book";
+
+            defReadSpot = BookshelfSpawnController.defReadSpot.transform;
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime >= lerpTime)
+            {
+                currentLerpTime = lerpTime;
+            }
+            float distCovered = currentLerpTime / lerpTime;
+            transform.position = Vector3.Lerp(defReadSpot.position, shelfSpot.position, distCovered);
+            transform.rotation = Quaternion.Lerp(defReadSpot.rotation, shelfSpot.rotation, distCovered);
         }
     }
 
