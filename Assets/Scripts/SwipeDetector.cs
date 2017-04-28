@@ -45,17 +45,17 @@ public class SwipeDetector : Detector {
 
     private void swipeForward()
     {
-        if (controller.foundBook != null)
+        if (BookshelfSpawnController.currentBook != null)
         {
-            controller.foundBook.GetComponent<NewBook>().turnForward();
+            SwipeController.foundBook.GetComponent<NewBook>().turnForward();
         }
     }
 
     private void swipeBackward()
     {
-        if (controller.foundBook != null)
+        if (BookshelfSpawnController.currentBook != null)
         {
-            controller.foundBook.GetComponent<NewBook>().turnBackward();
+            SwipeController.foundBook.GetComponent<NewBook>().turnBackward();
         }
     }
 
@@ -65,9 +65,12 @@ public class SwipeDetector : Detector {
         {
             if (controller.IsSwipingLeft)
             {
+                Debug.Log("swiping forward");
+
                 swipeForward();
             }
             else if (controller.IsSwipingRight) {
+                Debug.Log("swiping backward");
                 swipeBackward();
             }
 

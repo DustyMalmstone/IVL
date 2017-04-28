@@ -19,6 +19,9 @@ public class CustomDirectionDetector : Detector {
     [Tooltip("The finger to observe.")]
     public Finger.FingerType FingerName = Finger.FingerType.TYPE_INDEX;
 
+    [Tooltip("Secondary finger used to confirm selection")]
+    public Finger.FingerType SecondaryFingerName = Finger.FingerType.TYPE_MIDDLE;
+
     [Tooltip("The target direction.")]
     public Vector3 PointingDirection = Vector3.forward;
 
@@ -69,6 +72,7 @@ public class CustomDirectionDetector : Detector {
         Vector3 fingerDirection;
         Vector3 forward;
         int selectedFinger = selectedFingerOrdinal();
+        int secondaryFinger = secondaryFingerOrdinal();
         while (true)
         {
             if (HandModel != null)
@@ -90,9 +94,11 @@ public class CustomDirectionDetector : Detector {
 #endif
                     RaycastHit hit;
                     Transform hitObject = null;
-                    if (hand.Fingers[selectedFinger].IsExtended && HandModel.IsTracked && Physics.Raycast(fingerStart, forward, out hit))
+                    if (hand.Fingers[selectedFinger].IsExtended
+                        && hand.Fingers[secondaryFinger].IsExtended
+                        && HandModel.IsTracked
+                        && Physics.Raycast(fingerStart, forward, out hit))
                     {
-                        Debug.Log(hit.transform.gameObject.name);
                         if (hit.transform.gameObject.tag == "Book" && !BookshelfSpawnController.bookSelected)
                         {
 #if DEBUG
@@ -103,7 +109,7 @@ public class CustomDirectionDetector : Detector {
                             hitObject = hit.transform;
                             Activate();
 
-                            controller.foundBook = hitObject.gameObject;
+                            SwipeController.foundBook = hitObject.gameObject;
                             hitObject.gameObject.GetComponent<BookDetector>().Move();
                         }
                     }
@@ -160,6 +166,25 @@ public class CustomDirectionDetector : Detector {
         default:
           return 1;
       }
+    }
+
+    private int secondaryFingerOrdinal()
+    {
+        switch(SecondaryFingerName)
+        {
+            case Finger.FingerType.TYPE_INDEX:
+                return 1;
+            case Finger.FingerType.TYPE_MIDDLE:
+                return 2;
+            case Finger.FingerType.TYPE_PINKY:
+                return 4;
+            case Finger.FingerType.TYPE_RING:
+                return 3;
+            case Finger.FingerType.TYPE_THUMB:
+                return 0;
+            default:
+                return 2;
+        }
     }
 
   #if UNITY_EDITOR

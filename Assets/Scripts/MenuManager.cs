@@ -8,6 +8,12 @@ public class MenuManager : MonoBehaviour {
     public GameObject keyboard, playerCam;
     public GameObject[] SpawnPoints;
     public int currentSpawn;
+    public Transform hidePos;
+
+    private void Start()
+    {
+        //ShelfFader.hidePos = hidePos;
+    }
 
     private void Update()
     {
@@ -17,23 +23,25 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-    public void replaceBook()
+    public void ReplaceBook()
     {
         if (BookshelfSpawnController.bookSelected)
         {
-            BookDetector.isReturn = true;
+            BookshelfSpawnController.currentBook.GetComponent<BookDetector>().isReturn = true;
+            SwipeController.foundBook = null;
         }
     }
 
     public void FadeKeyboard()
     {
-        KBFader.fadePass = true;
+        KBManager.fadePass = !KBManager.fadePass;
         Debug.Log("Fadepass set");
     }
 
     public void FadeShelves()
     {
-        ShelfFader.fadePass = true;
+        BookshelfSpawnController.fadePass = !BookshelfSpawnController.fadePass;
+        //ShelfFader.fadePass = !ShelfFader.fadePass;
     }
 
     public void ResetShelves()

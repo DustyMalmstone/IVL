@@ -11,6 +11,9 @@ public class KBManager : MonoBehaviour {
     public GameObject[] keys;
     public QueryManager qm;
     public Toggle capsKey;
+    public GameObject[] fadeVictims;
+    public Transform hideSpot;
+    public static bool fadePass = false;
 
     char selectedSearch;
 
@@ -41,6 +44,26 @@ public class KBManager : MonoBehaviour {
         if (keywordSearch.isFocused && selectedSearch != 'k')
         {
             selectedSearch = 'k';
+        }
+
+        if (fadePass)
+        {
+            for (int i = 0; i < fadeVictims.Length; i++)
+            {
+                fadeVictims[i].GetComponent<KBFader>().faded = !fadeVictims[i].GetComponent<KBFader>().faded;
+            }
+            for (int i = 0; i < fadeVictims.Length; i++)
+            {
+                if (fadeVictims[i].GetComponent<KBFader>().faded)
+                {
+                    fadeVictims[i].transform.position = new Vector3(fadeVictims[i].transform.position.x, fadeVictims[i].transform.position.y - 1000, fadeVictims[i].transform.position.z);
+                }
+                else
+                {
+                    fadeVictims[i].transform.position = new Vector3(fadeVictims[i].transform.position.x, fadeVictims[i].transform.position.y + 1000, fadeVictims[i].transform.position.z);
+                }
+            }
+            fadePass = false;
         }
     }
 

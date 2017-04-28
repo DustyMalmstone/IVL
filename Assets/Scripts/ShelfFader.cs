@@ -6,21 +6,29 @@ public class ShelfFader : MonoBehaviour {
     Color startColor;
     Color currentColor;
     Color endColor;
-    bool shouldFadeOut = false, shouldFadeIn = false, canFade = true, faded = false;
+    public bool shouldFadeOut = false, shouldFadeIn = false, canFade = true, faded = false, meFadeOut = false, meFadeIn = false;
     public static bool fadePass = false;
     float startTime;
     float endTime;
     public float seconds = 5.0f;
     float t;
+    public Vector3 currentPos;
+    //public static Transform hidePos;
 
     // Use this for initialization
     void Start()
     {
-        if(gameObject.GetComponent<Renderer>() != null)
-        {
-            startColor = gameObject.GetComponent<Renderer>().material.color;
-            endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
-        }
+        //if(gameObject.GetComponent<Renderer>() != null)
+        //{
+        //    startColor = gameObject.GetComponent<Renderer>().material.color;
+        //    endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
+        //}
+        
+        float x = gameObject.transform.position.x;
+        float y = gameObject.transform.position.y;
+        float z = gameObject.transform.position.z;
+        currentPos = new Vector3(x,y,z);
+
 
         ApplyToChildren();
     }
@@ -34,9 +42,9 @@ public class ShelfFader : MonoBehaviour {
 
             canFade = false;
 
-            startTime = Time.time;
+            //startTime = Time.time;
 
-            endTime = startTime + seconds;
+            //endTime = startTime + seconds;
         }
         else if (canFade && faded && fadePass)
         {
@@ -44,19 +52,19 @@ public class ShelfFader : MonoBehaviour {
 
             canFade = false;
 
-            startTime = Time.time;
+            //startTime = Time.time;
 
-            endTime = startTime + seconds;
+            //endTime = startTime + seconds;
         }
 
         if (shouldFadeOut)
         {
-            FadeOut();
+            //FadeOut();
         }
 
         if (shouldFadeIn)
         {
-            FadeIn();
+            //FadeIn();
         }
 
     }
@@ -71,47 +79,84 @@ public class ShelfFader : MonoBehaviour {
         }
     }
 
-    void FadeOut()
+    void Fade()
     {
         if (shouldFadeOut)
         {
-            t = Time.time / endTime;
-
-            currentColor = Color.Lerp(startColor, endColor, t);
-
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", currentColor);
-
-            if (currentColor == endColor)
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 1000, gameObject.transform.position.z);
+            if(BookshelfSpawnController.currentBook != null)
             {
-                shouldFadeOut = false;
-                canFade = true;
-                fadePass = false;
-                startTime = 0.0f;
-                endTime = 0.0f;
-                t = 0.0f;
+                BookshelfSpawnController.currentBook.transform.position = new Vector3(BookshelfSpawnController.currentBook.transform.position.x, BookshelfSpawnController.currentBook.transform.position.y + 1000, BookshelfSpawnController.currentBook.transform.position.z);
             }
+            shouldFadeOut = false;
+            canFade = true;
+            fadePass = false;
+            faded = true;
         }
+
+        else if (shouldFadeIn)
+        {
+            Debug.Log(currentPos.x + " " + currentPos.y + " " + currentPos.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1000, gameObject.transform.position.z);
+            if (BookshelfSpawnController.currentBook != null)
+            {
+                BookshelfSpawnController.currentBook.transform.position = new Vector3(BookshelfSpawnController.currentBook.transform.position.x, BookshelfSpawnController.currentBook.transform.position.y - 1000, BookshelfSpawnController.currentBook.transform.position.z);
+            }
+            shouldFadeIn = false;
+            canFade = true;
+            fadePass = false;
+            faded = false;
+        }
+
+        //if (shouldFadeOut)
+        //{
+        //    t = Time.time / endTime;
+
+        //    currentColor = Color.Lerp(startColor, endColor, t);
+
+        //    gameObject.GetComponent<Renderer>().material.SetColor("_Color", currentColor);
+
+        //    if (currentColor == endColor)
+        //    {
+        //        shouldFadeOut = false;
+        //        canFade = true;
+        //        fadePass = false;
+        //        startTime = 0.0f;
+        //        endTime = 0.0f;
+        //        t = 0.0f;
+        //    }
+        //}
     }
 
     void FadeIn()
     {
         if (shouldFadeIn)
         {
-            t = Time.time / endTime;
-
-            currentColor = Color.Lerp(endColor, startColor, t);
-
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", currentColor);
-
-            if (currentColor == startColor)
-            {
-                shouldFadeIn = false;
-                canFade = true;
-                fadePass = false;
-                startTime = 0.0f;
-                endTime = 0.0f;
-                t = 0.0f;
-            }
+            Debug.Log(currentPos.x + " " + currentPos.y + " " + currentPos.z);
+            gameObject.transform.position = currentPos;
+            shouldFadeIn = false;
+            canFade = true;
+            fadePass = false;
+            faded = false;
         }
+
+    //    if (shouldFadeIn)
+    //    {
+    //        t = Time.time / endTime;
+
+    //        currentColor = Color.Lerp(endColor, startColor, t);
+
+    //        gameObject.GetComponent<Renderer>().material.SetColor("_Color", currentColor);
+
+    //        if (currentColor == startColor)
+    //        {
+    //            shouldFadeIn = false;
+    //            canFade = true;
+    //            fadePass = false;
+    //            startTime = 0.0f;
+    //            endTime = 0.0f;
+    //            t = 0.0f;
+    //        }
+    //    }
     }
 }

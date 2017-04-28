@@ -18,6 +18,10 @@ public class BookshelfSpawnController : MonoBehaviour {
     public static bool bookSelected; //boolean to determine whether a book is currently off the shelf
     public Transform defaultReadSpot; //transform of the default location a book will lerp to after being selected
     public static Transform defReadSpot; //static transform of the default location a book will lerp to after being selected (kill me please)
+    public Transform hideSpot;
+    public static bool fadePass = false;
+    public static GameObject currentBook, currentBookShelfSpot;
+    public GameObject shelfSpot;
 
     //private objects
     GameObject[] bookshelves; //array of bookshelves
@@ -33,6 +37,7 @@ public class BookshelfSpawnController : MonoBehaviour {
 
     void Start()
     {
+        currentBookShelfSpot = shelfSpot;
         bookshelfRotation = spawnCore.transform.rotation;
         bookshelves = new GameObject[spawnPoints.Length];
         bookModels = new GameObject[bookshelves.Length, shelfNum, bookNum];
@@ -40,6 +45,37 @@ public class BookshelfSpawnController : MonoBehaviour {
         //SpawnBooks();
         bookSelected = false;
         defReadSpot = defaultReadSpot;
+    }
+
+    private void Update()
+    {
+        if (fadePass)
+        {
+            for(int i = 0; i < bookshelves.Length; i++)
+            {
+                bookshelves[i].GetComponent<ShelfFader>().faded = !bookshelves[i].GetComponent<ShelfFader>().faded;
+            }
+            for(int i = 0; i < bookshelves.Length; i++)
+            {
+                if (bookshelves[i].GetComponent<ShelfFader>().faded)
+                {
+                    bookshelves[i].transform.position = new Vector3(bookshelves[i].transform.position.x, bookshelves[i].transform.position.y - 1000, bookshelves[i].transform.position.z);
+                    if (currentBook != null)
+                    {
+                        currentBook.transform.position = new Vector3(currentBook.transform.position.x, currentBook.transform.position.y + 250, currentBook.transform.position.z);
+                    }
+                }
+                else
+                {
+                    bookshelves[i].transform.position = new Vector3(bookshelves[i].transform.position.x, bookshelves[i].transform.position.y + 1000, bookshelves[i].transform.position.z);
+                    if (currentBook != null)
+                    {
+                        currentBook.transform.position = new Vector3(currentBook.transform.position.x, currentBook.transform.position.y - 250, currentBook.transform.position.z);
+                    }
+                }
+            }
+            fadePass = false;
+        }
     }
 
     void LateUpdate()
@@ -130,11 +166,9 @@ public class BookshelfSpawnController : MonoBehaviour {
                         //Build the book
                         bookModels[i, j, k] = (GameObject)Instantiate(bookModel, bookSpawnPos.position, bookSpawnPos.rotation);
                         bookModels[i, j, k].GetComponent<NewBook>().bookId = bookId;
-                        //bookModels[i, j, k].GetComponent<NewBook>().textures = Textures;
-                        //bookModels[i, j, k].GetComponent<NewBook>().bookText = getBookText();
+                        bookModels[i, j, k].GetComponent<BookDetector>().defReadSpot = defReadSpot;
                         bookModels[i, j, k].GetComponent<NewBook>().WordsPerPage = WordsPerPage;
                         bookModels[i, j, k].GetComponent<NewBook>().EstablishTextures(Textures);
-                        //bookModels[i, j, k].GetComponent<NewBook>().EstablishPages();
                         bookModels[i, j, k].transform.parent = bookshelves[i].transform;
                         //bookModels[i, j, k].GetComponent<BookDetector>().bsc = this;
                         //bookModels[i, j, k].GetComponent<Book>().NumberOfPages = (int)System.Math.Ceiling(double.Parse(bookInfo[4]) / 1000);

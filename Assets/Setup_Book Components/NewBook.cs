@@ -40,6 +40,9 @@ public class NewBook : MonoBehaviour {
         false
     };
 
+    // { Open, Flipped 1 }
+    public List<bool> newBookStates;
+
 	// Use this for initialization
 	void Start () {
         bookAnimator = gameObject.GetComponent<Animator>();
@@ -51,8 +54,11 @@ public class NewBook : MonoBehaviour {
         front3Pos = 4;
         back3Pos = 5;
 
-        
-	}
+        newBookStates = new List<bool>() { false, false };
+
+
+
+    }
 
     public void EstablishPages()
     {
@@ -63,7 +69,7 @@ public class NewBook : MonoBehaviour {
         FrontText2.text = string.Join(" ", pageTexts[front2Pos]);
         BackText2.text = string.Join(" ", pageTexts[back2Pos]);
         FrontText3.text = string.Join(" ", pageTexts[front3Pos]);
-        BackText3.text = string.Join(" ", pageTexts[back3Pos]);
+        //BackText3.text = string.Join(" ", pageTexts[back3Pos]);
     }
 
     public void EstablishTextures(Text[] textures)
@@ -106,20 +112,21 @@ public class NewBook : MonoBehaviour {
 
     IEnumerator GoForward()
     {
-        bookAnimator.SetTrigger("Flip 3");
+        bookAnimator.SetTrigger("Flip 2");
         // Page flip animations last 2 seconds
         yield return new WaitForSeconds(2.0f);
 
         establishPagesForward();
+        //yield return null;
     }
 
     IEnumerator GoBackward()
     {
         bookAnimator.SetTrigger("ScrollBack");
-
-        yield return new WaitForSeconds(.00001f);
-
+        yield return new WaitForSeconds(2f);
         establishPageBackward();
+        //yield return null;
+
     }
 	
 	// Update is called once per frame
@@ -138,33 +145,34 @@ public class NewBook : MonoBehaviour {
     public void turnForward()
     {
         // If there is no true, then the book is closed and we need to open it.
-        if (!bookStates.Contains(true))
+        if (!newBookStates.Contains(true))
         {
-            bookStates[0] = true;
+            newBookStates[0] = true;
             bookAnimator.SetTrigger("Open");
         }
         else
         {
-            int spotIndex = bookStates.FindIndex(x => x == true);
+            int spotIndex = newBookStates.FindIndex(x => x == true);
             // This is ugly, but it will work for now
             switch (spotIndex)
             {
                 case 0:
-                    bookStates[0] = false;
-                    bookStates[1] = true;
+                    newBookStates[0] = false;
+                    newBookStates[1] = true;
                     bookAnimator.SetTrigger("Flip 1");
                     break;
                 case 1:
-                    bookStates[1] = false;
-                    bookStates[2] = true;
-                    bookAnimator.SetTrigger("Flip 2");
-                    break;
-                case 2:
-                case 3:
-                    bookStates[2] = false;
-                    bookStates[3] = true;
+                    //bookStates[1] = false;
+                    //bookStates[2] = true;
+                    //bookAnimator.SetTrigger("Flip 2");
                     StartCoroutine("GoForward");
                     break;
+                //case 2:
+                //case 3:
+                //    bookStates[2] = false;
+                //    bookStates[3] = true;
+                //    StartCoroutine("GoForward");
+                //    break;
                 default:
                     break;
             }
@@ -174,23 +182,23 @@ public class NewBook : MonoBehaviour {
     public void turnBackward()
     {
         // if there is a true anywhere, that means the book is open and able to be turned back
-        if (bookStates.Contains(true))
+        if (newBookStates.Contains(true))
         {
-            int spotIndex = bookStates.FindIndex(x => x == true);
+
+            int spotIndex = newBookStates.FindIndex(x => x == true);
 
             switch(spotIndex)
             {
                 case 0:
-                    bookStates[0] = false;
+                    newBookStates[0] = false;
                     bookAnimator.SetTrigger("Close");
                     break;
                 case 1:
-                    Debug.Log("Front Position: " + front1Pos);
                     if (front1Pos == 0)
                     {
                         Debug.Log("Front 1 Pos is 0. Flipping to front");
-                        bookStates[1] = false;
-                        bookStates[0] = true;
+                        newBookStates[1] = false;
+                        newBookStates[0] = true;
                         bookAnimator.SetTrigger("Back 1");
                     }
                     else
@@ -199,16 +207,16 @@ public class NewBook : MonoBehaviour {
                         StartCoroutine("GoBackward");
                     }
                     break;
-                case 2:
-                    bookStates[2] = false;
-                    bookStates[1] = true;
-                    bookAnimator.SetTrigger("Back 2");
-                    break;
-                case 3:
-                    bookStates[3] = false;
-                    bookStates[1] = true;
-                    bookAnimator.SetTrigger("Back 2");
-                    break;
+                //case 2:
+                //    bookStates[2] = false;
+                //    bookStates[1] = true;
+                //    bookAnimator.SetTrigger("Back 2");
+                //    break;
+                //case 3:
+                //    bookStates[3] = false;
+                //    bookStates[1] = true;
+                //    bookAnimator.SetTrigger("Back 2");
+                //    break;
                 default:
                     break;
             }
@@ -217,43 +225,57 @@ public class NewBook : MonoBehaviour {
 
     void establishPagesForward()
     {
-        FrontText1.text = string.Join(" ", pageTexts[++front1Pos]);
-        BackText1.text = string.Join(" ", pageTexts[++back1Pos]);
-        FrontText2.text = string.Join(" ", pageTexts[++front2Pos]);
-        BackText2.text = string.Join(" ", pageTexts[back3Pos]);
+        Debug.Log("Page Count: " + pageTexts.Count);
+        if (front3Pos < pageTexts.Count)
+        {
+            Debug.Log("Front 1 Position: " + front1Pos);
+            Debug.Log("Back 1 Position: " + back1Pos);
+            Debug.Log("Front 2 Position: " + front2Pos);
+            Debug.Log("Back 2 Position: " + back2Pos);
+            Debug.Log("Front 3 Position: " + front3Pos);
+            front1Pos = front2Pos;
+            back1Pos = back2Pos;
+            front2Pos = front3Pos;
+            FrontText1.text = string.Join(" ", pageTexts[front1Pos]);
+            BackText1.text = string.Join(" ", pageTexts[back1Pos]);
+            FrontText2.text = string.Join(" ", pageTexts[front2Pos]);
+            
+            if (back2Pos + 2 >= pageTexts.Count) { BackText2.text = ""; }
+            else {
+                back2Pos += 2;
+                BackText2.text = string.Join(" ", pageTexts[back2Pos]);
+            }
 
-        if (front3Pos + 1 < pageTexts.Count)
-        {
-            front3Pos += 1;
-            FrontText3.text = string.Join(" ", pageTexts[front3Pos]);
-        }
-        else
-        {
-            FrontText3.text = "";
-        }
+            if (front3Pos + 2 >= pageTexts.Count) { FrontText3.text = ""; }
+            else {
+                front3Pos += 2;
+                FrontText3.text = string.Join(" ", pageTexts[front3Pos]);
+            }
 
-        if (back3Pos + 1 < pageTexts.Count)
-        {
-            back3Pos += 1;
-            BackText3.text = string.Join(" ", pageTexts[back3Pos]);
-        }
-        else
-        {
-            BackText3.text = "";
+            Debug.Log("New Front 1 Position: " + front1Pos);
+            Debug.Log("New Back 1 Position: " + back1Pos);
+            Debug.Log("New Front 2 Position: " + front2Pos);
+            Debug.Log("New Back 2 Position: " + back2Pos);
+            Debug.Log("New Front 3 Position: " + front3Pos);
         }
     }
 
     void establishPageBackward()
     {
-        BackText3.text = string.Join(" ", pageTexts[--back3Pos]);
-        FrontText3.text = string.Join(" ", pageTexts[--front3Pos]);
-        BackText2.text = string.Join(" ", pageTexts[--back2Pos]);
-        FrontText2.text = string.Join(" ", pageTexts[--front2Pos]);
-        BackText1.text = string.Join(" ", pageTexts[--back1Pos]);
-        if (front1Pos - 1 >= 0)
+
+        if (front1Pos - 2 >= 0)
         {
-            front1Pos -= 1;
+            front3Pos = front2Pos;
+            front2Pos = front1Pos;
+            back2Pos = back1Pos;
+            front1Pos -= 2;
+            back1Pos -= 2;
             FrontText1.text = string.Join(" ", pageTexts[front1Pos]);
+            BackText1.text = string.Join(" ", pageTexts[back1Pos]);
+            FrontText2.text = string.Join(" ", pageTexts[front2Pos]);
+            BackText2.text = string.Join(" ", pageTexts[back2Pos]);
+            FrontText3.text = string.Join(" ", pageTexts[front3Pos]);
+
         }
         
     }

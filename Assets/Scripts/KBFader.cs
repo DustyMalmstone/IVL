@@ -7,29 +7,27 @@ public class KBFader : MonoBehaviour {
     Color startColor;
     Color currentColor;
     Color endColor;
-    bool shouldFadeIn = false, shouldFadeOut = false, canFade = true, faded = false;
+    public bool shouldFadeIn = false, shouldFadeOut = false, canFade = true, faded = false;
     public static bool fadePass = false;
     float startTime;
     float endTime;
     public float seconds = 5.0f;
     float t;
 
-    // Use this for initialization
     void Start()
     {
-        if(gameObject.tag != "FadeExempt")
-        {
-            if (gameObject.GetComponent<Image>() != null)
-            {
-                startColor = gameObject.GetComponent<Image>().color;
-                endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
-            }
+        //if(gameObject.tag != "FadeExempt")
+        //{
+            //if (gameObject.GetComponent<Image>() != null)
+            //{
+            //    startColor = gameObject.GetComponent<Image>().color;
+            //    endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
+            //}
 
             ApplyToChildren();
-        }
+        //}
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (canFade && !faded && fadePass)
@@ -80,49 +78,59 @@ public class KBFader : MonoBehaviour {
 
     void FadeOut()
     {
-        Debug.Log("Inside FadeOut()");
-        if (shouldFadeOut)
+        if(shouldFadeOut && !gameObject.tag.Equals("FadeExempt"))
         {
-            Debug.Log("shouldFadeOut is true inside FadeOut()");
-            t = Time.deltaTime;
-
-            currentColor = Color.Lerp(startColor, endColor, t);
-
-            gameObject.GetComponent<Image>().color = currentColor;
-            Debug.Log("Color should be set");
-
-            if (currentColor == endColor)
-            {
-                Debug.Log("At the end of fading");
-                shouldFadeOut = false;
-                canFade = true;
-                fadePass = false;
-                startTime = 0.0f;
-                endTime = 0.0f;
-                t = 0.0f;
-            }
+            gameObject.SetActive(false);
         }
+
+        //Debug.Log("Inside FadeOut()");
+        //if (shouldFadeOut)
+        //{
+        //    Debug.Log("shouldFadeOut is true inside FadeOut()");
+        //    t = Time.deltaTime;
+
+        //    currentColor = Color.Lerp(startColor, endColor, t);
+
+        //    gameObject.GetComponent<Image>().color = currentColor;
+        //    Debug.Log("Color should be set");
+
+        //    if (currentColor == endColor)
+        //    {
+        //        Debug.Log("At the end of fading");
+        //        shouldFadeOut = false;
+        //        canFade = true;
+        //        fadePass = false;
+        //        startTime = 0.0f;
+        //        endTime = 0.0f;
+        //        t = 0.0f;
+        //    }
+        //}
     }
 
     void FadeIn()
     {
-        if (shouldFadeIn)
+        if(shouldFadeIn && !gameObject.tag.Equals("FadeExempt"))
         {
-            t = Time.time / endTime;
-
-            currentColor = Color.Lerp(endColor, startColor, t);
-
-            gameObject.GetComponent<Image>().color = currentColor;
-
-            if (currentColor == startColor)
-            {
-                shouldFadeIn = false;
-                canFade = true;
-                fadePass = false;
-                startTime = 0.0f;
-                endTime = 0.0f;
-                t = 0.0f;
-            }
+            gameObject.SetActive(true);
         }
+
+    //    if (shouldFadeIn)
+    //    {
+    //        t = Time.time / endTime;
+
+    //        currentColor = Color.Lerp(endColor, startColor, t);
+
+    //        gameObject.GetComponent<Image>().color = currentColor;
+
+    //        if (currentColor == startColor)
+    //        {
+    //            shouldFadeIn = false;
+    //            canFade = true;
+    //            fadePass = false;
+    //            startTime = 0.0f;
+    //            endTime = 0.0f;
+    //            t = 0.0f;
+    //        }
+    //    }
     }
 }

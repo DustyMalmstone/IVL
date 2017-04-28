@@ -7,18 +7,21 @@ public class BookDetector : MonoBehaviour {
 
     //public objects
     public int lerpTime;
-    public static bool isReturn = false;
+    public bool isReturn = false;
 
     //private objects
     bool isMove = false;
     float currentLerpTime = 0;
     bool gotText = false;
-    Transform defReadSpot; //The default spot for reading from bsc
-    Transform shelfSpot; //The position on the shelf of the book
+    public Transform defReadSpot; //The default spot for reading from bsc
+    Vector3 shelfSpot; //The position on the shelf of the book
+    Quaternion shelfRot; //The rotation of the book on the shelf
 
     private void Start()
     {
-        defReadSpot = BookshelfSpawnController.defReadSpot.transform;
+        //defreadspot = bookshelfspawncontroller.defreadspot.transform;
+        shelfSpot = gameObject.transform.position;
+        shelfRot = gameObject.transform.rotation;
     }
 
     private void Update()
@@ -26,21 +29,24 @@ public class BookDetector : MonoBehaviour {
         if (isMove)
         {
             gameObject.tag = "FadeExempt";
+            BookshelfSpawnController.currentBook = gameObject;
 
-            defReadSpot = BookshelfSpawnController.defReadSpot.transform;
+            //BookshelfSpawnController.currentBookShelfSpot.transform.position = gameObject.transform.position;
+            //shelfSpot = BookshelfSpawnController.currentBookShelfSpot.transform;
+
+            //defReadSpot = BookshelfSpawnController.defReadSpot.transform;
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime >= lerpTime)
             {
                 currentLerpTime = lerpTime;
             }
             float distCovered = currentLerpTime / lerpTime;
-            transform.position = Vector3.Lerp(shelfSpot.position, defReadSpot.position, distCovered);
-            transform.rotation = Quaternion.Lerp(shelfSpot.rotation, defReadSpot.rotation, distCovered);
+            transform.position = Vector3.Lerp(shelfSpot, defReadSpot.position, distCovered);
+            transform.rotation = Quaternion.Lerp(shelfRot, defReadSpot.rotation, distCovered);
 
             if (!gotText)
             {
                 bool passed = gameObject.GetComponent<NewBook>().EstablishText();
-                Debug.Log("Passed? " + passed);
             
                 if (passed)
                 {
@@ -57,7 +63,9 @@ public class BookDetector : MonoBehaviour {
 
         if (isReturn)
         {
-            gameObject.tag = "Book";
+            
+            BookshelfSpawnController.currentBook = null;
+            BookshelfSpawnController.bookSelected = false;
 
             defReadSpot = BookshelfSpawnController.defReadSpot.transform;
             currentLerpTime += Time.deltaTime;
@@ -66,8 +74,15 @@ public class BookDetector : MonoBehaviour {
                 currentLerpTime = lerpTime;
             }
             float distCovered = currentLerpTime / lerpTime;
-            transform.position = Vector3.Lerp(defReadSpot.position, shelfSpot.position, distCovered);
-            transform.rotation = Quaternion.Lerp(defReadSpot.rotation, shelfSpot.rotation, distCovered);
+            transform.position = Vector3.Lerp(defReadSpot.position, shelfSpot, distCovered);
+            transform.rotation = Quaternion.Lerp(defReadSpot.rotation, shelfRot, distCovered);
+
+            if (transform.position.Equals(shelfSpot))
+            {
+                isReturn = false;
+                gameObject.tag = "Book";
+            }
+            Debug.Log("Moved book back");
         }
     }
 

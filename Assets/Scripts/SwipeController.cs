@@ -9,7 +9,7 @@ public class SwipeController : MonoBehaviour {
 	public LeapProvider provider;
     public float sphereScale = .05f;
     public float str = .1f;
-    public GameObject foundBook = null;
+    public static GameObject foundBook = null;
 
     public bool IsLeftSwiping { get; private set; }
     public bool IsRightSwiping { get; private set; }
